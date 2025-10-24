@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECONO-FEED: 뉴스로 배우는 경제</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 글로벌 리셋 및 기본 설정 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            background-color: #fdfdfd; /* 거의 흰색에 가까운 미니멀한 배경 */
+            color: #333;
+            word-break: keep-all; /* 가독성을 위한 단어 유지 */
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit; /* 링크 색상 기본값 상속 */
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- 레이아웃 --- */
+        .container {
+            max-width: 1000px; /* 전문적인 느낌을 주는 적절한 너비 */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- 헤더 / 네비게이션 --- */
+        .main-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #eaeaea;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-left: 25px;
+        }
+
+        .main-nav a {
+            font-size: 16px;
+            font-weight: 500;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #000;
+        }
+
+        /* --- 메인 컨텐츠 --- */
+        main {
+            padding: 40px 0;
+        }
+
+        .main-title {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* --- 뉴스 아티클 리스트 --- */
+        .article-grid {
+            display: grid;
+            /* 20-30대를 고려하여 모바일 우선, 데스크탑 2컬럼 */
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* 768px 이상일 때 2컬럼 */
+        @media (min-width: 768px) {
+            .article-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .article-card {
+            background-color: #ffffff;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .article-card:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.07);
+            transform: translateY(-5px);
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover; /* 이미지가 비율에 맞게 채워지도록 */
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-category {
+            font-size: 13px;
+            font-weight: 500;
+            color: #007AFF; /* 신뢰감을 주는 블루 포인트 컬러 */
+            margin-bottom: 8px;
+        }
+
+        .article-card h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            /* 긴 제목을 위한 말줄임표 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* 2줄 제한 */
+            -webkit-box-orient: vertical;
+        }
+
+        .article-summary {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 15px;
+            /* 요약 3줄 제한 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        .article-meta {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* --- 푸터 --- */
+        .main-footer {
+            background-color: #ffffff;
+            border-top: 1px solid #eaeaea;
+            padding: 30px 0;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .footer-links li {
+            margin: 0 10px;
+        }
+
+        .footer-links a {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .footer-links a:hover {
+            color: #000;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            color: #aaa;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">ECONO-FEED</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#" class="active">최신뉴스</a></li>
+                    <li><a href="#">국내 경제</a></li>
+                    <li><a href="#">세계 경제</a></li>
+                    <li><a href="#">경제 용어</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="main-title">오늘 꼭 알아야 할 경제</h1>
+
+        <section class="article-grid">
+
+            <article class="article-card">
+                <a href="#">
+                    <img src="https://via.placeholder.com/600x400/E9ECEF/868E96?text=Global+Economy" alt="세계 경제 데모 이미지">
+                    <div class="article-content">
+                        <span class="article-category">세계 경제</span>
+                        <h2>미 9월 CPI 예상치 상회... '연말 금리 인상' 가능성 고조</h2>
+                        <p class="article-summary">미국의 9월 소비자물가지수(CPI)가 시장 예상치를 웃돌면서 인플레이션 압력이 여전한 것으로 나타났습니다. 이로 인해 미 연방준비제도(Fed)가 연말에 추가 금리 인상을 단행할 수 있다는 우려가 커지고 있습니다.</p>
+                        <div class="article-meta">
+                            <span>한국경제</span> | <span>2025. 10. 24.</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <article class="article-card">
+                <a href="#">
+                    <img src="https://via.placeholder.com/600x400/E9ECEF/868E96?text=Domestic+Stock" alt="국내 증시 데모 이미지">
+                    <div class="article-content">
+                        <span class="article-category">국내 증시</span>
+                        <h2>코스피, 미 증시 훈풍에 1%대 상승... 2400선 회복</h2>
+                        <p class="article-summary">간밤 미국 증시가 기술주 중심으로 반등에 성공하면서 국내 증시에도 훈풍이 불었습니다. 코스피 지수가 1% 넘게 상승하며 2400선을 회복했고, 코스닥도 강세를 보였습니다. 외국인과 기관의 동반 순매수가 지수를 이끌었습니다.</p>
+                        <div class="article-meta">
+                            <span>연합뉴스</span> | <span>2025. 10. 24.</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <article class="article-card">
+                <a href="#">
+                    <img src="https://via.placeholder.com/600x400/E9ECEF/868E96?text=Industry+Trend" alt="산업 데모 이미지">
+                    <div class="article-content">
+                        <span class="article-category">산업/기술</span>
+                        <h2>글로벌 공급망 재편 가속화... '반도체·배터리' 동맹 강화</h2>
+                        <p class="article-summary">미-중 기술 패권 경쟁 속에서 글로벌 공급망 재편이 빨라지고 있습니다. 특히 반도체, 배터리 등 핵심 전략 산업을 중심으로 우방국 간의 '프렌드쇼어링'이 강화되며, 국내 기업들의 전략적 대응이 중요해지고 있습니다.</p>
+                        <div class="article-meta">
+                            <span>매일경제</span> | <span>2025. 10. 23.</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+            <article class="article-card">
+                <a href="#">
+                    <img src="https://via.placeholder.com/600x400/E9ECEF/868E96?text=Youth+Policy" alt="청년 정책 데모 이미지">
+                    <div class="article-content">
+                        <span class="article-category">사회/정책</span>
+                        <h2>청년 실업률 2분기 연속 하락... '고용의 질'은 여전히 과제</h2>
+                        <p class="article-summary">통계청 발표에 따르면 2025년 3분기 청년(15~29세) 실업률이 전년 동기 대비 하락하며 2분기 연속 감소세를 보였습니다. 다만, 양질의 일자리보다는 단기 계약직 비중이 높아 '고용의 질' 개선은 여전히 과제로 남았습니다.</p>
+                        <div class="article-meta">
+                            <span>조선비즈</span> | <span>2025. 10. 23.</span>
+                        </div>
+                    </div>
+                </a>
+            </article>
+
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <ul class="footer-links">
+            <li><a href="#">ECONO-FEED 소개</a></li>
+            <li><a href="#">이용약관</a></li>
+            <li><a href="#">개인정보처리방침</a></li>
+            <li><a href="#">문의하기</a></li>
+        </ul>
+        <p class="footer-copyright">&copy; 2025 ECONO-FEED. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
